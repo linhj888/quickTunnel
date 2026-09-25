@@ -28,7 +28,7 @@
 
 | 文件 | 平台 | 使用方式 |
 |------|------|----------|
-| `QuickTunnel-v*-macOS-arm64.zip` | macOS Apple Silicon (M1/M2/M3/M4) | 解压得到 `QuickTunnel.app`,双击运行;首次打开如提示未签名,到「系统设置 → 隐私与安全性」点「仍要打开」 |
+| `QuickTunnel-v*-macOS-arm64.dmg` | macOS Apple Silicon (M1/M2/M3/M4) | 打开 DMG,将 `QuickTunnel` 拖入「Applications」文件夹即可;首次打开如提示未签名,到「系统设置 → 隐私与安全性」点「仍要打开」 |
 | `QuickTunnel-v*-Windows-x64.zip` | Windows x64 | 解压后运行 `QuickTunnel/QuickTunnel.exe` |
 
 ### 方式二:从源码运行

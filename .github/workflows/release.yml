@@ -44,10 +44,20 @@ jobs:
           --add-data "pkg${{ matrix.sep }}pkg"
           main.py
 
-      - name: Package
+      - name: Package (macOS dmg)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          mkdir -p dmgstage
+          cp -R dist/QuickTunnel.app dmgstage/
+          ln -s /Applications dmgstage/Applications
+          hdiutil create -volname QuickTunnel -srcfolder dmgstage -ov -format UDZO -o "dist/QuickTunnel-${{ github.ref_name }}-${{ matrix.pretty }}.dmg"
+
+      - name: Package (Windows zip)
+        if: runner.os == 'Windows'
         shell: bash
         run: >
-          python -c "import shutil; shutil.make_archive('dist/QuickTunnel-${{ github.ref_name }}-${{ matrix.pretty }}', 'zip', 'dist', '${{ runner.os == 'macOS' && 'QuickTunnel.app' || 'QuickTunnel' }}')"
+          python -c "import shutil; shutil.make_archive('dist/QuickTunnel-${{ github.ref_name }}-${{ matrix.pretty }}', 'zip', 'dist', 'QuickTunnel')"
 
       - name: Create release if missing
         shell: bash
@@ -59,4 +69,4 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${{ github.ref_name }}" dist/QuickTunnel-*.zip --clobber
+        run: gh release upload "${{ github.ref_name }}" dist/QuickTunnel-*.dmg dist/QuickTunnel-*.zip --clobber
