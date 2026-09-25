@@ -82,7 +82,10 @@ class State:
         entry = {"t": time.strftime("%H:%M:%S"), "msg": msg}
         with self.lock:
             self.logs.append(entry)
-        print(msg)
+        try:
+            print(msg)
+        except Exception:
+            pass
         if self.on_update:
             self.on_update()
 
@@ -103,6 +106,13 @@ STATE = State()
 
 # ---------- 配置持久化 ----------
 CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".quicktunnel", "config.json")
+NOWIN = {"creationflags": getattr(subprocess, "CREATE_NO_WINDOW", 0)}
+
+def _pkg_dir():
+    base = getattr(sys, "_MEIPASS", None)
+    if base:
+        return os.path.join(base, "pkg")
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "pkg")
 
 def save_config():
     try:
@@ -191,7 +201,7 @@ def _fetch(url, timeout=120, progress_cb=None):
     raise RuntimeError(f"内核下载失败: {last_err}\n可手动下载 {url} 后设置 QUICKTUNNEL_CF_PATH 指向该文件。")
 
 def _install_local_pkg(filename):
-    pkg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pkg", f"{os.path.splitext(filename)[0]}.xz")
+    pkg_path = os.path.join(_pkg_dir(), f"{os.path.splitext(filename)[0]}.xz")
     if not os.path.isfile(pkg_path):
         return False
     STATE.install_status = "解压中"
@@ -537,7 +547,7 @@ def start_tunnel():
     try:
         proc = subprocess.Popen(
             [cf, "tunnel", "--url", f"http://127.0.0.1:{PROXY_PORT}", "--no-autoupdate"],
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors="replace")
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors="replace", **NOWIN)
     except FileNotFoundError:
         return {"ok": False, "msg": "cloudflared 启动失败，请检查内核路径"}
     STATE.cf_proc = proc
@@ -885,7 +895,7 @@ def run_tunnel_cli(cf_path, target, quiet):
     print()
     try:
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                text=True, errors="replace")
+                                text=True, errors="replace", **NOWIN)
     except FileNotFoundError:
         sys.exit(red("[错误] cloudflared 启动失败，请检查内核路径。"))
     found = False

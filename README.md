@@ -23,7 +23,19 @@
 
 ## 快速开始
 
-### 1. 安装依赖
+### 方式一:下载打包好的桌面应用(推荐)
+
+到 [Releases](https://github.com/linhj888/quickTunnel/releases) 下载对应平台的压缩包,**每个包只包含该平台的内核**,解压即用、无需安装 Python:
+
+| 文件 | 平台 | 使用方式 |
+|------|------|----------|
+| `QuickTunnel-v*-macOS-arm64.zip` | macOS Apple Silicon (M1/M2/M3/M4) | 解压得到 `QuickTunnel.app`,双击运行;首次打开如提示未签名,到「系统设置 → 隐私与安全性」点「仍要打开」 |
+| `QuickTunnel-v*-macOS-x64.zip` | macOS Intel | 同上 |
+| `QuickTunnel-v*-Windows-x64.zip` | Windows x64 | 解压后运行 `QuickTunnel/QuickTunnel.exe` |
+
+### 方式二:从源码运行
+
+#### 1. 安装依赖
 
 ```bash
 pip install customtkinter
@@ -31,7 +43,7 @@ pip install customtkinter
 
 > Windows / macOS 官方 Python 均自带 tkinter;部分 Linux 发行版需要先安装 `python3-tk`。
 
-### 2. 启动
+#### 2. 启动
 
 ```bash
 # 桌面 GUI(省略参数即进入 GUI)
@@ -44,7 +56,7 @@ python3 main.py 3000
 python3 main.py http://localhost:8080/app
 ```
 
-### 3. 使用
+#### 3. 使用
 
 1. 在「端口映射」中添加本地服务端口(如 `3000`),路径可留空自动生成
 2. 点击「▶ 启动隧道」,几秒后得到公网地址
