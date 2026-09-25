@@ -16,10 +16,6 @@ jobs:
             platform: darwin-arm64
             pretty: macOS-arm64
             sep: ":"
-          - os: macos-13          # Intel
-            platform: darwin-amd64
-            pretty: macOS-x64
-            sep: ":"
           - os: windows-latest    # Windows x64
             platform: windows-amd64
             pretty: Windows-x64

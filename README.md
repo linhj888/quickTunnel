@@ -17,9 +17,8 @@
 | 平台 | 架构 | 离线内核 |
 |------|------|----------|
 | macOS | Apple Silicon (arm64) | ✅ 内置 |
-| macOS | Intel (amd64) | ✅ 内置 |
 | Windows | x64 | ✅ 内置 |
-| Linux | amd64 / arm64 | 在线下载 |
+| macOS Intel / Linux | amd64 | 从源码运行,内核在线下载 |
 
 ## 快速开始
 
@@ -30,7 +29,6 @@
 | 文件 | 平台 | 使用方式 |
 |------|------|----------|
 | `QuickTunnel-v*-macOS-arm64.zip` | macOS Apple Silicon (M1/M2/M3/M4) | 解压得到 `QuickTunnel.app`,双击运行;首次打开如提示未签名,到「系统设置 → 隐私与安全性」点「仍要打开」 |
-| `QuickTunnel-v*-macOS-x64.zip` | macOS Intel | 同上 |
 | `QuickTunnel-v*-Windows-x64.zip` | Windows x64 | 解压后运行 `QuickTunnel/QuickTunnel.exe` |
 
 ### 方式二:从源码运行
